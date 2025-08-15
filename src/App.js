@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import VideoPlayer from "../src/player/VideoPlayer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	return (
+		<div>
+			<VideoPlayer
+				adSrc="http://localhost:8000/statics/ads.mp4"
+				mainSrc="http://localhost:8000/statics/sample.mp4"
+				poster="http://localhost:8000/statics/poster.jpeg"
+				width={800}
+				height={450}
+			/>
+		</div>
+	);
+};
 
 export default App;
