@@ -1,0 +1,37 @@
+.splash-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background: linear-gradient(
+		135deg,
+		#000000,
+		#8b000067
+	); /* black to dark red */
+	color: white;
+	overflow: hidden;
+}
+
+.animated-title {
+	font-size: 5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	color: rgba(255, 255, 255, 0.893);
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* adds depth */
+}
+
+.animated-letter {
+	opacity: 0;
+	transform: translateY(30px);
+	animation: slideIn 0.6s forwards;
+}
+
+@keyframes slideIn {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

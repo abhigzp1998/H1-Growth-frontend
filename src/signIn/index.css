@@ -1,0 +1,14 @@
+.redirect-text {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 25px;
+}
+
+.redirect-text a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.redirect-text a:hover {
+	text-decoration: underline;
+}

@@ -1,15 +1,22 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import { useLocation } from "react-router-dom";
 
-const VideoPlayer = ({ adSrc, mainSrc, poster }) => {
+const VideoPlayer = () => {
 	const videoRef = useRef(null);
 	const playerRef = useRef(null);
-	const [isAdPlaying, setIsAdPlaying] = useState(true);
+	const isAdPlayingRef = useRef(true);
+	const isMidAdPlayedRef = useRef(false);
+
+	const location = useLocation();
+	const adSrc = location.state?.movie?.adSrc;
+	const midAdSrc = location.state?.movie?.midAdSrc;
+	const mainSrc = location.state?.movie?.mainSrc;
+	const poster = location.state?.movie?.poster;
 
 	useEffect(() => {
 		if (!videoRef.current) return;
-
 		if (!playerRef.current) {
 			playerRef.current = videojs(videoRef.current, {
 				controls: true,
@@ -20,13 +27,47 @@ const VideoPlayer = ({ adSrc, mainSrc, poster }) => {
 				sources: [{ src: adSrc, type: "video/mp4" }],
 			});
 
-			playerRef.current.on("ended", () => {
-				if (isAdPlaying) {
-					setIsAdPlaying(false);
-					playerRef.current.src({ src: mainSrc, type: "video/mp4" });
-					playerRef.current.play();
+			const player = playerRef.current;
+
+			player.on("ended", () => {
+				if (isAdPlayingRef.current) {
+					isAdPlayingRef.current = false;
+					player.src({ src: mainSrc, type: "video/mp4" });
+					player.play();
 				}
 			});
+
+			player.on("timeupdate", () => {
+				const currentTime = player.currentTime();
+
+				if (
+					!isAdPlayingRef.current &&
+					!isMidAdPlayedRef.current &&
+					currentTime >= 90
+				) {
+					isMidAdPlayedRef.current = true;
+					playMidAd();
+				}
+			});
+
+			const playMidAd = () => {
+				const currentTime = player.currentTime();
+				player.pause();
+
+				const savedTime = currentTime;
+				const savedSrc = mainSrc;
+
+				player.src({ src: midAdSrc, type: "video/mp4" });
+				player.play();
+
+				player.one("ended", () => {
+					player.src({ src: savedSrc, type: "video/mp4" });
+					player.play();
+					player.one("loadedmetadata", () => {
+						player.currentTime(savedTime);
+					});
+				});
+			};
 		}
 
 		return () => {
@@ -35,7 +76,7 @@ const VideoPlayer = ({ adSrc, mainSrc, poster }) => {
 				playerRef.current = null;
 			}
 		};
-	}, [adSrc, mainSrc, poster]);
+	}, [adSrc, midAdSrc, mainSrc, poster]);
 
 	return (
 		<div className="video-player-container" style={{ position: "relative" }}>

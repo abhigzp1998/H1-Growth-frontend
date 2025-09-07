@@ -1,0 +1,32 @@
+.logout-card {
+	position: relative;
+	background: linear-gradient(135deg, #1c1c1c, #3a3a3a);
+	color: white;
+	padding: 20px;
+	width: 350px;
+	height: 400px;
+	top: 50px;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	text-align: center;
+}
+.logout-tittle {
+	font-size: 28px;
+	margin-top: 100px;
+}
+.logout-para {
+	font-size: 18px;
+	margin-top: 20px;
+}
+.logout-card:hover {
+	transform: scale(1.03);
+	background: linear-gradient(135deg, #3a3a3a, #1c1c1c);
+}
+.setting-page {
+	position: relative;
+	font-size: 40px;
+	left: 100px;
+	top: 50px;
+}

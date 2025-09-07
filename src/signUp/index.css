@@ -1,0 +1,127 @@
+/* Reset & basics */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.signup-wrapper {
+	display: flex;
+	min-height: 100vh;
+	background: #000;
+	color: #fff;
+}
+
+.image-side {
+	flex: 1.5;
+	background: url("../../assest/img/OTT-industry-trends.jpeg") center
+		center/cover no-repeat;
+	animation: zoomIn 20s ease-in-out infinite alternate;
+}
+
+@keyframes zoomIn {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1.05);
+	}
+}
+
+.form-side {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #141414;
+	padding: 40px 30px;
+}
+
+.form-container {
+	width: 100%;
+	max-width: 400px;
+}
+
+.form-container h1 {
+	font-size: 2.3rem;
+	margin-bottom: 30px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+input {
+	padding: 15px 18px;
+	font-size: 1.1rem;
+	border-radius: 5px;
+	border: none;
+	background: #333;
+	color: #fff;
+	transition: background-color 0.3s ease;
+}
+
+input::placeholder {
+	color: #bbb;
+}
+
+input:focus {
+	outline: none;
+	background: #555;
+}
+
+button {
+	padding: 15px;
+	font-size: 1.15rem;
+	font-weight: 700;
+	background: #e50914;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	letter-spacing: 1.2px;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background: #b00610;
+}
+
+.error-message {
+	margin-top: 10px;
+	color: #ff4d4f;
+	font-weight: 600;
+}
+
+.success-message {
+	margin-top: 10px;
+	color: #4caf50;
+	font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+	.signup-wrapper {
+		flex-direction: column;
+	}
+
+	.image-side {
+		height: 250px;
+		flex: none;
+	}
+
+	.form-side {
+		flex: none;
+		padding: 30px 20px;
+	}
+
+	.form-container h1 {
+		font-size: 2rem;
+	}
+}
